@@ -321,3 +321,461 @@ Total # of neighbors = 80425
 Ave neighs/atom = 73.1802
 Neighbor list builds = 0
 Dangerous builds = 0
+
+# ============
+# == step 3 ==
+# ============
+
+variable	    T equal 250
+velocity     	all create ${T} 423428 mom no rot yes dist gaussian
+velocity     	all create 250 423428 mom no rot yes dist gaussian
+fix          	1 all npt temp $T $T 0.001 iso 0 0 0.1
+fix          	1 all npt temp 250 $T 0.001 iso 0 0 0.1
+fix          	1 all npt temp 250 250 0.001 iso 0 0 0.1
+#fix           2 all ave/time 1 ${T} ${run} c_q[1] c_q[2] c_q[3] file return/RDF/RDF_${T}.rdf mode vector
+fix 		      3 all print ${run} "${Pe} ${Temp}" append return/pe-temp.txt title ""
+fix 		      3 all print 120000 "${Pe} ${Temp}" append return/pe-temp.txt title ""
+fix 		      4 all print ${run} "${Vol} ${Temp}" append return/vol-temp.txt title ""
+fix 		      4 all print 120000 "${Vol} ${Temp}" append return/vol-temp.txt title ""
+thermo		    ${thermo}
+thermo		    20000
+run 		      ${run}
+run 		      120000
+Memory usage per processor = 3.88871 Mbytes
+Step Temp E_pair E_mol TotEng Press Volume 
+  360003          250    -3636.488            0   -3601.0061    1242.4355    16713.831 
+  380000    240.12402   -3622.6053            0   -3588.5251   -291.27362    16811.438 
+  400000    254.86737   -3621.7378            0    -3585.565   -786.40685    16811.574 
+  420000    250.98476   -3623.3915            0   -3587.7699   -604.83563    16818.346 
+  440000    240.84315   -3622.5099            0   -3588.3276   -338.63124    16814.648 
+  460000    256.01538    -3620.669            0   -3584.3334    1113.2262    16789.746 
+-3622.9098865802 248.86643399238
+16769.6138131256 248.86643399238
+  480000    248.86643   -3622.9099            0   -3587.5889    1389.1098    16769.614 
+  480003    259.41884   -3622.8389            0   -3586.0202    215.66068    16792.872 
+Loop time of 549.11 on 6 procs for 120000 steps with 1099 atoms
+
+Performance: 18.881 ns/day, 1.271 hours/ns, 218.535 timesteps/s
+39.5% CPU use with 6 MPI tasks x 1 OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 327.04     | 341.19     | 355.53     |  57.5 | 62.13
+Neigh   | 0.28072    | 0.30196    | 0.321      |   2.7 |  0.05
+Comm    | 151.52     | 165.94     | 180.56     |  85.8 | 30.22
+Output  | 0.2796     | 0.2986     | 0.31686    |   2.5 |  0.05
+Modify  | 31.92      | 32.775     | 33.932     |  11.7 |  5.97
+Other   |            | 8.608      |            |       |  1.57
+
+Nlocal:    183.167 ave 219 max 164 min
+Histogram: 2 0 1 1 1 0 0 0 0 1
+Nghost:    1681.33 ave 1710 max 1659 min
+Histogram: 1 0 2 0 0 1 1 0 0 1
+Neighs:    13332.8 ave 19130 max 11044 min
+Histogram: 2 1 1 1 0 0 0 0 0 1
+
+Total # of neighbors = 79997
+Ave neighs/atom = 72.7907
+Neighbor list builds = 162
+Dangerous builds = 0
+unfix 		    1
+#unfix 		    2
+run 		      1
+Memory usage per processor = 3.88942 Mbytes
+Step Temp E_pair E_mol TotEng Press 
+  480003    259.41884   -3622.8389            0   -3586.0202    215.66068 
+  480004    259.41884   -3622.8389            0   -3586.0202    215.66068 
+Loop time of 0.0077099 on 6 procs for 1 steps with 1099 atoms
+
+Performance: 11.206 ns/day, 2.142 hours/ns, 129.703 timesteps/s
+8.6% CPU use with 6 MPI tasks x 1 OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.0041513  | 0.0048879  | 0.0053784  |   0.6 | 63.40
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.0016077  | 0.0020909  | 0.0028273  |   1.0 | 27.12
+Output  | 0.00027975 | 0.00036292 | 0.00069539 |   0.8 |  4.71
+Modify  | 3.277e-06  | 3.4371e-06 | 3.6273e-06 |   0.0 |  0.04
+Other   |            | 0.0003648  |            |       |  4.73
+
+Nlocal:    183.167 ave 215 max 166 min
+Histogram: 2 0 1 1 1 0 0 0 0 1
+Nghost:    1687.17 ave 1700 max 1675 min
+Histogram: 2 0 0 1 0 0 1 0 0 2
+Neighs:    13351.3 ave 18801 max 11117 min
+Histogram: 2 1 1 1 0 0 0 0 0 1
+
+Total # of neighbors = 80108
+Ave neighs/atom = 72.8917
+Neighbor list builds = 0
+Dangerous builds = 0
+
+# ============
+# == step 4 ==
+# ============
+
+variable	    T equal 350
+velocity     	all create ${T} 423428 mom no rot yes dist gaussian
+velocity     	all create 350 423428 mom no rot yes dist gaussian
+fix          	1 all npt temp $T $T 0.001 iso 0 0 0.1
+fix          	1 all npt temp 350 $T 0.001 iso 0 0 0.1
+fix          	1 all npt temp 350 350 0.001 iso 0 0 0.1
+#fix           2 all ave/time 1 ${T} ${run} c_q[1] c_q[2] c_q[3] file return/RDF/RDF_${T}.rdf mode vector
+fix 		      3 all print ${run} "${Pe} ${Temp}" append return/pe-temp.txt title ""
+fix 		      3 all print 120000 "${Pe} ${Temp}" append return/pe-temp.txt title ""
+fix 		      4 all print ${run} "${Vol} ${Temp}" append return/vol-temp.txt title ""
+fix 		      4 all print 120000 "${Vol} ${Temp}" append return/vol-temp.txt title ""
+thermo		    ${thermo}
+thermo		    20000
+run 		      ${run}
+run 		      120000
+Memory usage per processor = 3.88942 Mbytes
+Step Temp E_pair E_mol TotEng Press Volume 
+  480004          350   -3622.8389            0   -3573.1643      1033.37    16792.872 
+  500000    342.94309   -3608.6432            0   -3559.9701    1073.7726     16885.29 
+  520000     353.7122   -3609.2124            0   -3559.0108    1488.5856    16870.215 
+  540000    350.37196   -3607.6029            0   -3557.8755    1673.1768    16881.661 
+  560000    354.66949   -3609.7466            0   -3559.4092    839.29228    16853.658 
+  580000    355.23172   -3607.4454            0   -3557.0282   -1247.2311    16924.704 
+-3608.5502647696 355.111510369641
+16896.8717032198 355.111510369641
+  600000    355.11151   -3608.5503            0   -3558.1501   -51.154573    16896.872 
+  600004    357.87828   -3609.1346            0   -3558.3418   -710.92483    16903.424 
+Loop time of 564.299 on 6 procs for 120000 steps with 1099 atoms
+
+Performance: 18.373 ns/day, 1.306 hours/ns, 212.653 timesteps/s
+37.7% CPU use with 6 MPI tasks x 1 OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 325.41     | 344.71     | 371.49     |  93.5 | 61.09
+Neigh   | 0.7277     | 0.84309    | 0.953      |   7.5 |  0.15
+Comm    | 151.22     | 177.97     | 198.04     | 128.8 | 31.54
+Output  | 0.24085    | 0.25402    | 0.26713    |   1.8 |  0.05
+Modify  | 31.211     | 32.217     | 33.137     |  12.1 |  5.71
+Other   |            | 8.31       |            |       |  1.47
+
+Nlocal:    183.167 ave 191 max 175 min
+Histogram: 1 0 0 1 1 0 2 0 0 1
+Nghost:    1701.33 ave 1751 max 1656 min
+Histogram: 1 1 0 0 1 1 0 1 0 1
+Neighs:    13308.8 ave 14897 max 11918 min
+Histogram: 2 0 0 0 2 0 0 0 1 1
+
+Total # of neighbors = 79853
+Ave neighs/atom = 72.6597
+Neighbor list builds = 474
+Dangerous builds = 0
+unfix 		    1
+#unfix 		    2
+run 		      1
+Memory usage per processor = 3.88942 Mbytes
+Step Temp E_pair E_mol TotEng Press 
+  600004    357.87828   -3609.1346            0   -3558.3418   -710.92483 
+  600005    357.87828   -3609.1346            0   -3558.3418   -710.92483 
+Loop time of 0.00775514 on 6 procs for 1 steps with 1099 atoms
+
+Performance: 11.141 ns/day, 2.154 hours/ns, 128.947 timesteps/s
+17.2% CPU use with 6 MPI tasks x 1 OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.0047785  | 0.005502   | 0.0061724  |   0.6 | 70.95
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.000943   | 0.0016312  | 0.0023394  |   1.1 | 21.03
+Output  | 0.00020049 | 0.00030706 | 0.00061023 |   0.8 |  3.96
+Modify  | 2.334e-06  | 2.5134e-06 | 2.6942e-06 |   0.0 |  0.03
+Other   |            | 0.0003123  |            |       |  4.03
+
+Nlocal:    183.167 ave 190 max 175 min
+Histogram: 1 0 1 0 0 0 2 1 0 1
+Nghost:    1703.33 ave 1754 max 1662 min
+Histogram: 1 1 0 1 1 0 0 1 0 1
+Neighs:    13305.2 ave 14757 max 11885 min
+Histogram: 2 0 0 0 1 1 0 0 0 2
+
+Total # of neighbors = 79831
+Ave neighs/atom = 72.6397
+Neighbor list builds = 0
+Dangerous builds = 0
+
+# ============
+# == step 5 ==
+# ============
+
+variable	    T equal 450
+velocity     	all create ${T} 423428 mom no rot yes dist gaussian
+velocity     	all create 450 423428 mom no rot yes dist gaussian
+fix          	1 all npt temp $T $T 0.001 iso 0 0 0.1
+fix          	1 all npt temp 450 $T 0.001 iso 0 0 0.1
+fix          	1 all npt temp 450 450 0.001 iso 0 0 0.1
+#fix           2 all ave/time 1 ${T} ${run} c_q[1] c_q[2] c_q[3] file return/RDF/RDF_${T}.rdf mode vector
+fix 		      3 all print ${run} "${Pe} ${Temp}" append return/pe-temp.txt title ""
+fix 		      3 all print 120000 "${Pe} ${Temp}" append return/pe-temp.txt title ""
+fix 		      4 all print ${run} "${Vol} ${Temp}" append return/vol-temp.txt title ""
+fix 		      4 all print 120000 "${Vol} ${Temp}" append return/vol-temp.txt title ""
+thermo		    ${thermo}
+thermo		    20000
+run 		      ${run}
+run 		      120000
+Memory usage per processor = 3.88942 Mbytes
+Step Temp E_pair E_mol TotEng Press Volume 
+  600005          450   -3609.1346            0   -3545.2672    115.25282    16903.424 
+  620000    461.66603   -3593.7484            0   -3528.2253    1833.8975    16948.894 
+  640000    451.39552   -3592.5528            0   -3528.4873    3808.8123    16917.603 
+  660000     451.0056    -3611.619            0   -3547.6088    1016.5582    16648.831 
+  680000    461.53175   -3625.7632            0    -3560.259    978.21015    16445.246 
+  700000    413.89328   -3631.0912            0   -3572.3483    2313.0078     16294.72 
+-3632.15127113274 454.013044147324
+16328.2286949837 454.013044147324
+  720000    454.01304   -3632.1513            0   -3567.7143    19.413213    16328.229 
+  720005    446.09161   -3631.1519            0   -3567.8392    2238.9791    16291.963 
+Loop time of 577.92 on 6 procs for 120000 steps with 1099 atoms
+
+Performance: 17.940 ns/day, 1.338 hours/ns, 207.641 timesteps/s
+39.1% CPU use with 6 MPI tasks x 1 OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 329.92     | 354.18     | 389.11     | 107.0 | 61.29
+Neigh   | 1.2057     | 1.3216     | 1.5451     |  10.3 |  0.23
+Comm    | 145.48     | 178.83     | 202.22     | 145.3 | 30.94
+Output  | 0.27505    | 0.29134    | 0.30596    |   2.0 |  0.05
+Modify  | 33.377     | 35.122     | 37.114     |  22.0 |  6.08
+Other   |            | 8.173      |            |       |  1.41
+
+Nlocal:    183.167 ave 247 max 164 min
+Histogram: 4 0 1 0 0 0 0 0 0 1
+Nghost:    1805 ave 1839 max 1728 min
+Histogram: 1 0 0 0 0 1 1 0 0 3
+Neighs:    14116.3 ave 21181 max 11473 min
+Histogram: 3 1 0 0 1 0 0 0 0 1
+
+Total # of neighbors = 84698
+Ave neighs/atom = 77.0682
+Neighbor list builds = 721
+Dangerous builds = 0
+unfix 		    1
+#unfix 		    2
+run 		      1
+Memory usage per processor = 3.89009 Mbytes
+Step Temp E_pair E_mol TotEng Press 
+  720005    446.09161   -3631.1519            0   -3567.8392    2238.9791 
+  720006    446.09161   -3631.1519            0   -3567.8392    2238.9791 
+Loop time of 0.00260512 on 6 procs for 1 steps with 1099 atoms
+
+Performance: 33.165 ns/day, 0.724 hours/ns, 383.859 timesteps/s
+102.4% CPU use with 6 MPI tasks x 1 OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.0015943  | 0.0018326  | 0.0022444  |   0.5 | 70.35
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.00013005 | 0.00062108 | 0.00080837 |   0.9 | 23.84
+Output  | 4.9096e-05 | 6.2951e-05 | 9.1285e-05 |   0.2 |  2.42
+Modify  | 1.1651e-06 | 1.404e-06  | 1.6266e-06 |   0.0 |  0.05
+Other   |            | 8.707e-05  |            |       |  3.34
+
+Nlocal:    183.167 ave 246 max 168 min
+Histogram: 4 1 0 0 0 0 0 0 0 1
+Nghost:    1803.33 ave 1848 max 1723 min
+Histogram: 1 0 0 0 1 1 0 0 1 2
+Neighs:    14124.8 ave 21227 max 11420 min
+Histogram: 3 1 0 0 1 0 0 0 0 1
+
+Total # of neighbors = 84749
+Ave neighs/atom = 77.1146
+Neighbor list builds = 0
+Dangerous builds = 0
+
+# ============
+# == step 6 ==
+# ============
+
+variable	    T equal 550
+velocity     	all create ${T} 423428 mom no rot yes dist gaussian
+velocity     	all create 550 423428 mom no rot yes dist gaussian
+fix          	1 all npt temp $T $T 0.001 iso 0 0 0.1
+fix          	1 all npt temp 550 $T 0.001 iso 0 0 0.1
+fix          	1 all npt temp 550 550 0.001 iso 0 0 0.1
+fix           2 all ave/time 1 ${T} ${run} c_q[1] c_q[2] c_q[3] file return/RDF/RDF_${T}.rdf mode vector
+fix           2 all ave/time 1 550 ${run} c_q[1] c_q[2] c_q[3] file return/RDF/RDF_${T}.rdf mode vector
+fix           2 all ave/time 1 550 120000 c_q[1] c_q[2] c_q[3] file return/RDF/RDF_${T}.rdf mode vector
+fix           2 all ave/time 1 550 120000 c_q[1] c_q[2] c_q[3] file return/RDF/RDF_550.rdf mode vector
+fix 		      3 all print ${run} "${Pe} ${Temp}" append return/pe-temp.txt title ""
+fix 		      3 all print 120000 "${Pe} ${Temp}" append return/pe-temp.txt title ""
+fix 		      4 all print ${run} "${Vol} ${Temp}" append return/vol-temp.txt title ""
+fix 		      4 all print 120000 "${Vol} ${Temp}" append return/vol-temp.txt title ""
+thermo		    ${thermo}
+thermo		    20000
+run 		      ${run}
+run 		      120000
+Memory usage per processor = 3.89009 Mbytes
+Step Temp E_pair E_mol TotEng Press Volume 
+  720006          550   -3631.1519            0   -3553.0917    3205.8383    16291.963 
+  740000    582.84092   -3616.7445            0   -3534.0233    4289.1175     16340.16 
+  760000    553.25144   -3626.9944            0   -3548.4728    -2751.001    16295.566 
+  780000    569.41088    -3654.531            0   -3573.7158   -979.88227    15725.691 
+  800000    537.40003   -6306.2051            0   -6229.9332    5719.9247    4360.2748 
+  820000    540.38564   -6317.1935            0   -6240.4979    13831.845    4352.5043 
+-6316.56206365268 541.788180687126
+4357.47007733506 541.788180687126
+  840000    541.78818   -6316.5621            0   -6239.6673    6904.9743    4357.4701 
+  840006    552.49474   -6313.9727            0   -6235.5584    -15356.94    4372.4256 
+Loop time of 1017.32 on 6 procs for 120000 steps with 1099 atoms
+
+Performance: 10.191 ns/day, 2.355 hours/ns, 117.957 timesteps/s
+43.4% CPU use with 6 MPI tasks x 1 OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 680.96     | 695.61     | 712.27     |  41.3 | 68.38
+Neigh   | 1.4133     | 1.5803     | 1.7767     |  11.2 |  0.16
+Comm    | 251.05     | 267.24     | 281.88     |  66.5 | 26.27
+Output  | 0.24664    | 0.26128    | 0.27617    |   2.0 |  0.03
+Modify  | 43.188     | 43.81      | 44.225     |   5.4 |  4.31
+Other   |            | 8.822      |            |       |  0.87
+
+Nlocal:    183.167 ave 188 max 178 min
+Histogram: 1 0 0 1 1 0 1 0 1 1
+Nghost:    4046.67 ave 4055 max 4038 min
+Histogram: 1 0 2 0 0 0 0 1 1 1
+Neighs:    49584.2 ave 53748 max 45392 min
+Histogram: 1 0 1 0 1 1 0 1 0 1
+
+Total # of neighbors = 297505
+Ave neighs/atom = 270.705
+Neighbor list builds = 750
+Dangerous builds = 0
+unfix 		    1
+unfix 		    2
+run 		      1
+Memory usage per processor = 3.93149 Mbytes
+Step Temp E_pair E_mol TotEng Press 
+  840006    552.49474   -6313.9727            0   -6235.5584    -15356.94 
+  840007    552.49474   -6313.9727            0   -6235.5584    -15356.94 
+Loop time of 0.00725458 on 6 procs for 1 steps with 1099 atoms
+
+Performance: 11.910 ns/day, 2.015 hours/ns, 137.844 timesteps/s
+82.7% CPU use with 6 MPI tasks x 1 OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.0051905  | 0.0059117  | 0.0067142  |   0.7 | 81.49
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.0003261  | 0.0011294  | 0.0018594  |   1.6 | 15.57
+Output  | 5.1291e-05 | 8.9392e-05 | 0.00017428 |   0.4 |  1.23
+Modify  | 1.2345e-06 | 1.5222e-06 | 1.7448e-06 |   0.0 |  0.02
+Other   |            | 0.0001225  |            |       |  1.69
+
+Nlocal:    183.167 ave 188 max 177 min
+Histogram: 1 0 0 1 0 2 0 0 0 2
+Nghost:    4059.5 ave 4085 max 4044 min
+Histogram: 2 0 1 1 0 0 1 0 0 1
+Neighs:    49543.5 ave 53828 max 47052 min
+Histogram: 1 1 1 1 1 0 0 0 0 1
+
+Total # of neighbors = 297261
+Ave neighs/atom = 270.483
+Neighbor list builds = 0
+Dangerous builds = 0
+
+# ============
+# == step 7 ==
+# ============
+
+variable	    T equal 650
+velocity     	all create ${T} 423428 mom no rot yes dist gaussian
+velocity     	all create 650 423428 mom no rot yes dist gaussian
+fix          	1 all npt temp $T $T 0.001 iso 0 0 0.1
+fix          	1 all npt temp 650 $T 0.001 iso 0 0 0.1
+fix          	1 all npt temp 650 650 0.001 iso 0 0 0.1
+#fix           2 all ave/time 1 ${T} ${run} c_q[1] c_q[2] c_q[3] file return/RDF/RDF_${T}.rdf mode vector
+fix 		      3 all print ${run} "${Pe} ${Temp}" append return/pe-temp.txt title ""
+fix 		      3 all print 120000 "${Pe} ${Temp}" append return/pe-temp.txt title ""
+fix 		      4 all print ${run} "${Vol} ${Temp}" append return/vol-temp.txt title ""
+fix 		      4 all print 120000 "${Vol} ${Temp}" append return/vol-temp.txt title ""
+thermo		    ${thermo}
+thermo		    20000
+run 		      ${run}
+run 		      120000
+Memory usage per processor = 3.93149 Mbytes
+Step Temp E_pair E_mol TotEng Press Volume 
+  840007          650   -6313.9727            0   -6221.7197   -11976.356    4372.4256 
+  860000    658.05136   -6303.2785            0   -6209.8828   -6867.9297    4372.6038 
+  880000    659.56387    -6304.809            0   -6211.1986    10068.606     4361.553 
+  900000    651.74492   -6301.3416            0    -6208.841    24262.339    4352.6819 
+  920000    640.13979   -6301.9234            0   -6211.0698   -15906.622    4377.7519 
+  940000     659.4166   -6306.7007            0   -6213.1112   -195.02552    4366.7395 
+-6307.19788556165 658.273999252192
+4373.15646166256 658.273999252192
+  960000      658.274   -6307.1979            0   -6213.7706    -9215.125    4373.1565 
+  960007    649.90267   -6303.4892            0   -6211.2501    6048.2649    4363.6493 
+Loop time of 1487.66 on 6 procs for 120000 steps with 1099 atoms
+
+Performance: 6.969 ns/day, 3.444 hours/ns, 80.664 timesteps/s
+44.6% CPU use with 6 MPI tasks x 1 OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 1029.8     | 1068.4     | 1094.4     |  69.2 | 71.82
+Neigh   | 0.30512    | 0.3142     | 0.3259     |   1.4 |  0.02
+Comm    | 341.15     | 367.49     | 404.93     | 116.3 | 24.70
+Output  | 0.23902    | 0.25204    | 0.26417    |   1.8 |  0.02
+Modify  | 41.087     | 41.653     | 42.597     |   8.2 |  2.80
+Other   |            | 9.575      |            |       |  0.64
+
+Nlocal:    183.167 ave 186 max 178 min
+Histogram: 1 0 0 0 0 0 1 3 0 1
+Nghost:    4017.67 ave 4039 max 4000 min
+Histogram: 2 1 0 0 0 0 0 2 0 1
+Neighs:    49378.3 ave 53472 max 46643 min
+Histogram: 2 0 1 0 1 0 0 1 0 1
+
+Total # of neighbors = 296270
+Ave neighs/atom = 269.581
+Neighbor list builds = 60
+Dangerous builds = 0
+unfix 		    1
+#unfix 		    2
+run 		      1
+Memory usage per processor = 3.93149 Mbytes
+Step Temp E_pair E_mol TotEng Press 
+  960007    649.90267   -6303.4892            0   -6211.2501    6048.2649 
+  960008    649.90267   -6303.4892            0   -6211.2501    6048.2649 
+Loop time of 0.0223938 on 6 procs for 1 steps with 1099 atoms
+
+Performance: 3.858 ns/day, 6.221 hours/ns, 44.655 timesteps/s
+47.6% CPU use with 6 MPI tasks x 1 OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.010529   | 0.01459    | 0.019195   |   2.5 | 65.15
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0.0024472  | 0.0070115  | 0.011171   |   3.7 | 31.31
+Output  | 0.00022529 | 0.00033675 | 0.00075071 |   1.0 |  1.50
+Modify  | 2.7054e-06 | 2.9306e-06 | 3.1107e-06 |   0.0 |  0.01
+Other   |            | 0.000453   |            |       |  2.02
+
+Nlocal:    183.167 ave 185 max 180 min
+Histogram: 1 0 0 0 1 0 1 0 1 2
+Nghost:    4038 ave 4047 max 4029 min
+Histogram: 1 0 0 1 1 1 1 0 0 1
+Neighs:    49592.2 ave 53156 max 47323 min
+Histogram: 2 1 0 1 0 0 0 0 1 1
+
+Total # of neighbors = 297553
+Ave neighs/atom = 270.749
+Neighbor list builds = 0
+Dangerous builds = 0
