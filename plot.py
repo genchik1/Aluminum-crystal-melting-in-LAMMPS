@@ -1,3 +1,4 @@
+#coding:UTF-8
 import matplotlib.pyplot as plt
 
 def ploting(filename):
@@ -18,17 +19,18 @@ def ploting(filename):
     infile.close()
     return rdf_x, rdf_y
 
-rdf_1 = ploting('return/RDF/RDF_50.rdf')
-rdf_2 = ploting('return/RDF/RDF_550.rdf')
-rdf_3 = ploting('return/RDF/RDF_1050.rdf')
+rdf_1 = ploting('/home/scala/Документы/my_CODE/lammps/aluminiy/return/RDF/RDF_50.rdf')
+rdf_2 = ploting('/home/scala/Документы/my_CODE/lammps/aluminiy/return/RDF/RDF_550.rdf')
+rdf_3 = ploting('/home/scala/Документы/my_CODE/lammps/aluminiy/return/RDF/RDF_1050.rdf')
 
 plt.plot(rdf_1[0],rdf_1[1], 'g-')
 plt.plot(rdf_2[0],rdf_2[1], 'r-')
 plt.plot(rdf_3[0],rdf_3[1], 'b-')
 
-plt.legend(['rdf_50K', 'rdf_500K', 'rdf_1250K'], loc=0)
-plt.savefig('rdf_2.png')
+plt.title("RDF")
+plt.legend(['rdf_50K', 'rdf_550K', 'rdf_1050K'], loc=0)
 plt.grid()
+plt.savefig('rdf.png')
 plt.show()
 
 def plots(filename):
@@ -44,15 +46,21 @@ def plots(filename):
     infile.close()
     return plot_x, plot_y
 
-plots_1 = plots('return/pe-temp.txt')
-plots_2 = plots('return/vol-temp.txt')
+plots_1 = plots('/home/scala/Документы/my_CODE/lammps/aluminiy/return/pe-temp.txt')
+plots_2 = plots('/home/scala/Документы/my_CODE/lammps/aluminiy/return/vol-temp.txt')
 
+plt.title("Temp/PE")
+plt.xlabel(u'Tемпература, К')
+plt.ylabel(u'Пот.энергия')
 plt.plot(plots_1[1], plots_1[0])
-plt.savefig('plot_pe-temp_2.png')
 plt.grid()
+plt.savefig('plot_pe-temp.png')
 plt.show()
 
+plt.title("Temp/Vol")
+plt.xlabel(u'Tемпература, К')
+plt.ylabel(u'Объем')
 plt.plot(plots_2[1], plots_2[0])
-plt.savefig('plot_vol-temp_2.png')
 plt.grid()
+plt.savefig('plot_vol-temp.png')
 plt.show()

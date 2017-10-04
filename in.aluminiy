@@ -3,8 +3,8 @@
 # ==================== Aluminum crystal melting =======================
 # =====================================================================
 
-# изменено velocity dist uniform на gaussian
-# добавлены темп= 4, 1150, 1250
+# _3 закомментирована строка "mom no rot yes dist uniform"
+# _3 увеличена скорость на 1 порядок
 
 units        	metal
 dimension    	3
@@ -18,20 +18,20 @@ pair_style	  eam
 pair_coeff	  * * /home/scala/mylammps/potentials/Al_jnp.eam
 #neighbor     8.0 bin
 
-variable	    T equal 4
+variable	    T equal 50
 variable	    run equal 120000
-variable	    thermo equal 20000
+variable	    thermo equal 10000
 variable      Pe equal pe
 variable      Vol equal vol
 variable      Temp equal temp
 
-velocity     	all create ${T} 423428 mom no rot yes dist gaussian
+velocity     	all create ${T} 4234280 mom no rot yes dist uniform
 
 dump         	1 all xyz 1099 return/alumin.xyz
-fix          	1 all npt temp $T $T 0.001 iso 0 0 0.1 #Tdump - время, на сколько быстро ослабляется температура
+fix          	1 all npt temp $T $T 0.01 iso 0 0 0.1 #Tdump - время, на сколько быстро ослабляется температура
 
 #========= RDF =========
-compute      	q all rdf 50
+compute      	q all rdf 70
 fix           2 all ave/time 1 ${T} ${run} c_q[1] c_q[2] c_q[3] file return/RDF/RDF_${T}.rdf mode vector
 
 #======= Save file Pe/Temp and Vol/Temp ========
@@ -46,27 +46,11 @@ unfix 		    2
 run 		      1
 
 # ============
-# == step 1 ==
-# ============
-
-variable	    T equal 50
-velocity     	all create ${T} 423428 mom no rot yes dist gaussian
-fix          	1 all npt temp $T $T 0.001 iso 0 0 0.1
-fix           2 all ave/time 1 ${T} ${run} c_q[1] c_q[2] c_q[3] file return/RDF/RDF_${T}.rdf mode vector
-fix 		      3 all print ${run} "${Pe} ${Temp}" append return/pe-temp.txt title ""
-fix 		      4 all print ${run} "${Vol} ${Temp}" append return/vol-temp.txt title ""
-thermo		    ${thermo}
-run 		      ${run}
-unfix 		    1
-unfix 		    2
-run 		      1
-
-# ============
 # == step 2 ==
 # ============
 
 variable	    T equal 150
-velocity     	all create ${T} 423428 mom no rot yes dist gaussian
+velocity     	all create ${T} 4234280 mom no rot yes dist uniform
 fix          	1 all npt temp $T $T 0.001 iso 0 0 0.1
 #fix           2 all ave/time 1 ${T} ${run} c_q[1] c_q[2] c_q[3] file return/RDF/RDF_${T}.rdf mode vector
 fix 		      3 all print ${run} "${Pe} ${Temp}" append return/pe-temp.txt title ""
@@ -82,7 +66,7 @@ run 		      1
 # ============
 
 variable	    T equal 250
-velocity     	all create ${T} 423428 mom no rot yes dist gaussian
+velocity     	all create ${T} 4234280 mom no rot yes dist uniform
 fix          	1 all npt temp $T $T 0.001 iso 0 0 0.1
 #fix           2 all ave/time 1 ${T} ${run} c_q[1] c_q[2] c_q[3] file return/RDF/RDF_${T}.rdf mode vector
 fix 		      3 all print ${run} "${Pe} ${Temp}" append return/pe-temp.txt title ""
@@ -98,7 +82,7 @@ run 		      1
 # ============
 
 variable	    T equal 350
-velocity     	all create ${T} 423428 mom no rot yes dist gaussian
+velocity     	all create ${T} 4234280 mom no rot yes dist uniform
 fix          	1 all npt temp $T $T 0.001 iso 0 0 0.1
 #fix           2 all ave/time 1 ${T} ${run} c_q[1] c_q[2] c_q[3] file return/RDF/RDF_${T}.rdf mode vector
 fix 		      3 all print ${run} "${Pe} ${Temp}" append return/pe-temp.txt title ""
@@ -114,7 +98,7 @@ run 		      1
 # ============
 
 variable	    T equal 450
-velocity     	all create ${T} 423428 mom no rot yes dist gaussian
+velocity     	all create ${T} 4234280 mom no rot yes dist uniform
 fix          	1 all npt temp $T $T 0.001 iso 0 0 0.1
 #fix           2 all ave/time 1 ${T} ${run} c_q[1] c_q[2] c_q[3] file return/RDF/RDF_${T}.rdf mode vector
 fix 		      3 all print ${run} "${Pe} ${Temp}" append return/pe-temp.txt title ""
@@ -130,7 +114,7 @@ run 		      1
 # ============
 
 variable	    T equal 550
-velocity     	all create ${T} 423428 mom no rot yes dist gaussian
+velocity     	all create ${T} 4234280 mom no rot yes dist uniform
 fix          	1 all npt temp $T $T 0.001 iso 0 0 0.1
 fix           2 all ave/time 1 ${T} ${run} c_q[1] c_q[2] c_q[3] file return/RDF/RDF_${T}.rdf mode vector
 fix 		      3 all print ${run} "${Pe} ${Temp}" append return/pe-temp.txt title ""
@@ -146,7 +130,7 @@ run 		      1
 # ============
 
 variable	    T equal 650
-velocity     	all create ${T} 423428 mom no rot yes dist gaussian
+velocity     	all create ${T} 4234280 mom no rot yes dist uniform
 fix          	1 all npt temp $T $T 0.001 iso 0 0 0.1
 #fix           2 all ave/time 1 ${T} ${run} c_q[1] c_q[2] c_q[3] file return/RDF/RDF_${T}.rdf mode vector
 fix 		      3 all print ${run} "${Pe} ${Temp}" append return/pe-temp.txt title ""
@@ -162,7 +146,7 @@ run 		      1
 # ============
 
 variable	    T equal 750
-velocity     	all create ${T} 423428 mom no rot yes dist gaussian
+velocity     	all create ${T} 4234280 mom no rot yes dist uniform
 fix          	1 all npt temp $T $T 0.001 iso 0 0 0.1
 #fix           2 all ave/time 1 ${T} ${run} c_q[1] c_q[2] c_q[3] file return/RDF/RDF_${T}.rdf mode vector
 fix 		      3 all print ${run} "${Pe} ${Temp}" append return/pe-temp.txt title ""
@@ -178,7 +162,7 @@ run 		      1
 # ============
 
 variable	    T equal 850
-velocity     	all create ${T} 423428 mom no rot yes dist gaussian
+velocity     	all create ${T} 4234280 mom no rot yes dist uniform
 fix          	1 all npt temp $T $T 0.001 iso 0 0 0.1
 #fix           2 all ave/time 1 ${T} ${run} c_q[1] c_q[2] c_q[3] file return/RDF/RDF_${T}.rdf mode vector
 fix 		      3 all print ${run} "${Pe} ${Temp}" append return/pe-temp.txt title ""
@@ -189,12 +173,12 @@ unfix 		    1
 #unfix 		    2
 run 		      1
 
-# ============
+# =============
 # == step 10 ==
-# ============
+# =============
 
 variable	    T equal 950
-velocity     	all create ${T} 423428 mom no rot yes dist gaussian
+velocity     	all create ${T} 4234280 mom no rot yes dist uniform
 fix          	1 all npt temp $T $T 0.001 iso 0 0 0.1
 #fix           2 all ave/time 1 ${T} ${run} c_q[1] c_q[2] c_q[3] file return/RDF/RDF_${T}.rdf mode vector
 fix 		      3 all print ${run} "${Pe} ${Temp}" append return/pe-temp.txt title ""
@@ -202,39 +186,32 @@ fix 		      4 all print ${run} "${Vol} ${Temp}" append return/vol-temp.txt title
 thermo		    ${thermo}
 run 		      ${run}
 unfix 		    1
-#unfix 		    2
+#unfix 		    2И ПОЛУЧИТЬ СПЕКТР.
 run 		      1
 
-# ============
+# =============
 # == step 11 ==
-# ============
+# =============
 
 variable	    T equal 1050
-velocity     	all create ${T} 423428 mom no rot yes dist gaussian
+velocity     	all create ${T} 4234280 mom no rot yes dist uniform
 fix          	1 all npt temp $T $T 0.001 iso 0 0 0.1
-#fix           2 all ave/time 1 ${T} ${run} c_q[1] c_q[2] c_q[3] file return/RDF/RDF_${T}.rdf mode vector
+fix           2 all ave/time 1 ${T} ${run} c_q[1] c_q[2] c_q[3] file return/RDF/RDF_${T}.rdf mode vector
 fix 		      3 all print ${run} "${Pe} ${Temp}" append return/pe-temp.txt title ""
 fix 		      4 all print ${run} "${Vol} ${Temp}" append return/vol-temp.txt title ""
 thermo		    ${thermo}
 run 		      ${run}
 unfix 		    1
-#unfix 		    2
+unfix 		    2
 run 		      1
+
+
+# =============
+# == step 12 ==
+# =============
 
 variable	    T equal 1150
-velocity     	all create ${T} 423428 mom no rot yes dist gaussian
-fix          	1 all npt temp $T $T 0.001 iso 0 0 0.1
-#fix           2 all ave/time 1 ${T} ${run} c_q[1] c_q[2] c_q[3] file return/RDF/RDF_${T}.rdf mode vector
-fix 		      3 all print ${run} "${Pe} ${Temp}" append return/pe-temp.txt title ""
-fix 		      4 all print ${run} "${Vol} ${Temp}" append return/vol-temp.txt title ""
-thermo		    ${thermo}
-run 		      ${run}
-unfix 		    1
-#unfix 		    2
-run 		      1
-
-variable	    T equal 1250
-velocity     	all create ${T} 423428 mom no rot yes dist gaussian
+velocity     	all create ${T} 4234280 mom no rot yes dist uniform
 fix          	1 all npt temp $T $T 0.001 iso 0 0 0.1
 fix           2 all ave/time 1 ${T} ${run} c_q[1] c_q[2] c_q[3] file return/RDF/RDF_${T}.rdf mode vector
 fix 		      3 all print ${run} "${Pe} ${Temp}" append return/pe-temp.txt title ""
